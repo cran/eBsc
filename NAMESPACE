@@ -1,4 +1,4 @@
-useDynLib(eBsc)
+useDynLib(eBsc,.registration=TRUE)
 importFrom(Rcpp, evalCpp)
 importFrom("graphics", "abline", "lines", "par")
 importFrom("stats", "acf", "coef", "quantile", "sd", "uniroot")

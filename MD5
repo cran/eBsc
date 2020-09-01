@@ -1,5 +1,5 @@
-991e5e66b5b8dac7a5b1af87225d82f7 *DESCRIPTION
-478a328d331f96d812120f2e7fd3815d *NAMESPACE
+b63f6b8f196a91835473faa71cd26c91 *DESCRIPTION
+44872b05ef239e5f57f634224ac18faf *NAMESPACE
 39d45c63db20c1b5077fe971692e5284 *R/EBCparallel.R
 968bdaea3afdcc9de47651230cc00dcb *R/EBCq.R
 746491d34861e2ea13a3ffc42d510c6a *R/Elambda.R
@@ -18,12 +18,13 @@ ff7d0ffd9a64e9cda5c6a7a557f77861 *R/plot.eBsc.R
 6f7f2346bd373c0c698f58030c7878b7 *R/summary.eBsc.R
 1210e558b13da4d47ac3a9202f740701 *man/drbasis.Rd
 97a075258d6b9f72f10d76da116a3c24 *man/eBsc-internal.Rd
-4cdb93176888339a79cc0eab55194d0f *man/eBsc-package.Rd
+780e6b357739d16db54751d74f20dab8 *man/eBsc-package.Rd
 3d6cfe1e8bbd3475a0fdeda5d5520e6f *man/eBsc.Rd
 eba2206d2199762f929c0780722d45fd *man/plot.eBsc.Rd
 072214dfd360b239e67aa8a29c564ea1 *man/rcpparma_hello_world.Rd
 71298496cdd4104295e01401b1073aa0 *man/summary.eBsc.Rd
-2a6f9e9e044a78154d3cfda5936d6f48 *src/Makevars
+4fe56599f30bfe4ac26f82b2c63a21ba *src/Makevars
 c64fcbd00a7061acaf9d443d36f89cfe *src/RcppExports.cpp
 57e462771288c06e1c965608a1027d33 *src/drbasisC.cpp
 6f35999ed6c5117a6c547833c636afd1 *src/rcpparma_hello_world.cpp
+7c22b1b500cab25872924e218f1645f5 *src/registerDynamicSymbol.c
