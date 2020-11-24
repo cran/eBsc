@@ -1,28 +1,15 @@
 Package: eBsc
 Type: Package
-Title: Empirical Bayes Smoothing Splines with Correlated Errors
-Version: 4.11
-Date: 2020-08-21
-Authors@R: 
-  c(person(given = "Francisco",
-           family = "Rosales",
-           role = c("aut", "cre"),
-           email = "francisco@brein.pe"),
-    person(given = "Tatyana",
-           family = "Krivobokova",
-           role = "aut"),
-    person(given = "Paulo",
-           family = "Serra",
-           role = "aut"))
-Description: Presents a statistical method that uses a recursive algorithm for signal extraction. The method handles a non-parametric estimation for the correlation of the errors. For details on the methods see: Serra, Krivobokova and Rosales (2018) <arXiv:1812.06948>.
+Title: "Empirical Bayes Smoothing Splines with Correlated Errors"
+Version: 4.12
+Date: 2020-11-08
+Author: Francisco Rosales, Tatyana Krivobokova, Paulo Serra.
+Description: Presents a statistical method that uses a recursive algorithm for signal extraction. The method handles a non-parametric estimation for the correlation of the errors. See "Serra", "Krivobokova" and "Rosales" (2018) <arXiv:1812.06948> for details.
 License: GPL-2
 Imports: Brobdingnag, parallel, nlme, Matrix, MASS, splines, Rcpp
 LinkingTo: Rcpp, RcppArmadillo
 NeedsCompilation: yes
-Packaged: 2020-08-22 01:42:23 UTC; francisco
-Author: Francisco Rosales [aut, cre],
-  Tatyana Krivobokova [aut],
-  Paulo Serra [aut]
-Maintainer: Francisco Rosales <francisco@brein.pe>
+Maintainer: John Barrera <johnkevinbarrera@gmail.com>
+Packaged: 2020-11-24 06:58:41 UTC; john
 Repository: CRAN
-Date/Publication: 2020-09-01 08:40:13 UTC
+Date/Publication: 2020-11-24 11:30:02 UTC
