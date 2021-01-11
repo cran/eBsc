@@ -53,7 +53,7 @@ arma::vec eigenvalues(int nn, int qq=999){
   arma::vec ev(nn);
 #pragma omp parallel for 
   for (int i=0;i<nn-qq;i++){
-    svec(i)=pow(pi*((i+1)+1.0/2*((qq+1)%2)+floor((qq-1)/2)),(2*qq))/nn;}
+    svec(i)=pow(pi*((i+1)+1.0/2*((qq+1)%2)+floor((qq-1)/2.0)),(2*qq))/nn;}
 #pragma omp parallel for 
   for (int j=0;j<2*nn;j++){
     atten1(j)= pow(sin((j+1)*pi/(2*nn))/((j+1)*pi/(2*nn)),2*qq) / Qfunc((j+1)/(2.0*nn),qq);}

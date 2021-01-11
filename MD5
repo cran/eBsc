@@ -1,4 +1,4 @@
-5b41d415128c0ab45036a5d22ef979a1 *DESCRIPTION
+fe168d31a48995f1c2b038769208f3df *DESCRIPTION
 5caecce03ea54794b0e531f205fad3f5 *NAMESPACE
 39d45c63db20c1b5077fe971692e5284 *R/EBCparallel.R
 968bdaea3afdcc9de47651230cc00dcb *R/EBCq.R
@@ -25,6 +25,6 @@ eba2206d2199762f929c0780722d45fd *man/plot.eBsc.Rd
 71298496cdd4104295e01401b1073aa0 *man/summary.eBsc.Rd
 9bee80363d628043a5d46114251699d9 *src/Makevars
 c64fcbd00a7061acaf9d443d36f89cfe *src/RcppExports.cpp
-57e462771288c06e1c965608a1027d33 *src/drbasisC.cpp
+26bc04619e3f55bb42bf7662d8670bc1 *src/drbasisC.cpp
 6f35999ed6c5117a6c547833c636afd1 *src/rcpparma_hello_world.cpp
 7c22b1b500cab25872924e218f1645f5 *src/registerDynamicSymbol.c
