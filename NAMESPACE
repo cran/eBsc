@@ -3,6 +3,7 @@ importFrom(Rcpp, evalCpp)
 importFrom("graphics", "abline", "lines", "par")
 importFrom("stats", "acf", "coef", "quantile", "sd", "uniroot")
 importFrom("graphics", "legend")
+importFrom("Brobdingnag", "as.brob", "is.brob", "as.brobmat", "is.brobmat", "brobmat_to_brob")
 
 export(drbasis)
 export(rcpparma_innerproduct)
@@ -22,7 +23,6 @@ S3method(eBsc,default)
 
 # Import all packages listed as Imports or Depends
 import(
-    Brobdingnag,
     parallel,
     nlme,
     Matrix,
