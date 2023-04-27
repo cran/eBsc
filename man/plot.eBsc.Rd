@@ -46,10 +46,10 @@ noise <- rnorm(n)
 y <- mu + sigma * noise
 
 #correlation assumed known and equal to the identity
-fit.d <- eBsc(y, method = "D", R0 = diag(n))
+fit <- eBsc(y, method = "N", q=3)
 
 #simple plot by  
-plot(fit.d, full = FALSE)
+plot(fit, full = FALSE)
 
 }
 

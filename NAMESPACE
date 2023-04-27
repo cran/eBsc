@@ -4,6 +4,7 @@ importFrom("graphics", "abline", "lines", "par")
 importFrom("stats", "acf", "coef", "quantile", "sd", "uniroot")
 importFrom("graphics", "legend")
 importFrom("Brobdingnag", "as.brob", "is.brob", "as.brobmat", "is.brobmat", "brobmat_to_brob")
+importFrom("mvtnorm", "rmvt")
 
 export(drbasis)
 export(rcpparma_innerproduct)
@@ -14,7 +15,6 @@ export(eBsc)
 export(plot.eBsc)
 export(print.eBsc)
 export(summary.eBsc)
-
 
 S3method(plot, eBsc)
 S3method(print, eBsc)
@@ -28,6 +28,7 @@ import(
     Matrix,
     MASS,
     splines,
-    Rcpp
+    Rcpp,
+    mvtnorm
 )
 

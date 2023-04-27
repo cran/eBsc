@@ -42,7 +42,7 @@ noise <- rnorm(n)
 y <- mu + sigma * noise
 
 # correlation matrix assumed known and equal to the identity
-fit <- eBsc(y, method = "D", R0 = diag(n))
+fit <- eBsc(y, method = "N", q=3)
 
 summary(fit)
 }

@@ -10,7 +10,7 @@ EBCq <- function(y, q, method = "N", R0 = NULL, zero_range = c(-45,1), ARpMAq = 
     Phi.mat <- BasiseBsc[[q]]$eigenvectorsQR
     eta.vec <- as.vector(BasiseBsc[[q]]$eigenvalues)
     coefs <- t(Phi.mat) %*% y.vec
-    eigens <- neBsc*eta.vec 
+    eigens <- neBsc * eta.vec 
     
     ##default
     Rseq <- array(data = NA, dim = c(25+1,neBsc,neBsc));
@@ -49,7 +49,6 @@ EBCq <- function(y, q, method = "N", R0 = NULL, zero_range = c(-45,1), ARpMAq = 
 
         ##raw eigenvalues
         rho = coefs ^ 2 * Lambda * eigens * rho.fit / (1 + Lambda * eigens * rho.fit)
-        #rho[rho > quantile(rho, 0.995)] = quantile(rho, 0.995)
         rho = rho / mean(rho)
       
         ##smoothed rhos
@@ -57,18 +56,44 @@ EBCq <- function(y, q, method = "N", R0 = NULL, zero_range = c(-45,1), ARpMAq = 
         rho.fit = rho.fit1/mean(rho.fit1)
         
         ##final estimates
-        f.hat   = Phi.mat %*% (coefs/(1+Lambda * eigens * rho.fit))
+        f.hat   = sdy * Phi.mat %*% (coefs/(1+Lambda * eigens * rho.fit))
         etq.hat = Eq(log10lambda = log10(Lambda), coefs = coefs, eigens = eigens, rhos = rho.fit, neBsc = neBsc, q = q)
         sigma2.hat  = ( sum( coefs ^ 2 * Lambda * eigens / (1 + Lambda * eigens * rho.fit)) + 1)/( neBsc + 1)
-          
+        sigma2.hat = (sdy^2) * sigma2.hat
+        lambda.hat = Lambda        
+
+        # cbs
+        coefs = t(Phi.mat) %*% y 
+        PRP = t(Phi.mat) %*% R.hat %*% Phi.mat
+        SR.hat = Phi.mat %*% solve(PRP + lambda.hat * diag(eigens)) %*% t(Phi.mat)
+        #
+        #tempo = PRP + lambda.hat * diag(eigens)
+        #tempo.eigen = eigen(tempo)
+        #tempo.inv = tempo.eigen$vector %*%diag(tempo.eigen$values) %*%solve(tempo.eigen$vector)
+        #SR.hat = Phi.mat %*% tempo.inv %*% t(Phi.mat)
+        
+
+        reps = 5000
+        alpha = 0.05
+        temp = rmvt(round(reps/(1 - alpha)), sigma = sigma2.hat * SR.hat, df = neBsc + 1, type = "shifted")
+        C = sort(apply((temp)^2, 1, sum))[reps]
+        fluctuations = temp[(apply((temp)^2, 1, sum)) <= C, ]
+
+        posterior.samples = sapply(1:reps, function(i) f.hat + fluctuations[i])
+        posterior.samples.max = apply(posterior.samples,1,max)
+        posterior.samples.min = apply(posterior.samples,1,min)
+        cb.hat = cbind(posterior.samples.min,posterior.samples.max) 
+        R.hat = R.hat[1,]
+
         outcome <-
             list(
-                f.hat = f.hat*sdy,
-                R.hat = R.hat[1,],
-                lambda.hat = Lambda,
+                f.hat = f.hat,
+                R.hat = R.hat,
+                lambda.hat = lambda.hat,
                 etq.hat = etq.hat,
                 niter = 1,
-                sigma2.hat = (sdy^2)*sigma2.hat
+                sigma2.hat = sigma2.hat,
+                cb.hat = cb.hat
             )
     }
     
@@ -95,7 +120,6 @@ EBCq <- function(y, q, method = "N", R0 = NULL, zero_range = c(-45,1), ARpMAq = 
         {
             ##Raw eigenvalues
             rho = coefs ^ 2 * Lambda * eigens * rho.fit / (1 + Lambda * eigens * rho.fit)
-            #rho[rho > quantile(rho, 0.995)] = quantile(rho, 0.995)
             rho = rho / mean(rho)
       
             ##Smoothed rhos
@@ -118,21 +142,40 @@ EBCq <- function(y, q, method = "N", R0 = NULL, zero_range = c(-45,1), ARpMAq = 
         Lambda  = Lambda1
         rho.fit = rho.fit1
 
-        
         ##final estimates
-        f.hat   = Phi.mat %*% (coefs / (1 + Lambda * eigens * rho.fit))
+        f.hat   = sdy * Phi.mat %*% (coefs / (1 + Lambda * eigens * rho.fit))
         etq.hat = Eq(log10lambda = log10(Lambda), coefs = coefs, eigens = eigens, rhos = rho.fit, neBsc = neBsc, q = q)
         R.hat   = toeplitz(sapply(1:neBsc, function(i) mean(cos(pi * seq(0,1,length.out=neBsc) * (i-1)) * rho.fit)))
         sigma2.hat  = (sum(coefs ^ 2 * Lambda * eigens/(1 + Lambda * eigens * rho.fit)) + 1)/(neBsc + 1)
-        
+        sigma2.hat = (sdy^2) * sigma2.hat
+        lambda.hat = Lambda        
+
+        # cbs
+        coefs = t(Phi.mat) %*% y 
+        PRP = t(Phi.mat) %*% R.hat %*% Phi.mat
+        SR.hat = Phi.mat %*% solve(PRP + lambda.hat * diag(eigens)) %*% t(Phi.mat)
+
+        reps = 5000
+        alpha = 0.05
+        temp = rmvt(round(reps/(1 - alpha)), sigma = sigma2.hat * SR.hat, df = neBsc + 1, type = "shifted")
+        C = sort(apply((temp)^2, 1, sum))[reps]
+        fluctuations = temp[(apply((temp)^2, 1, sum)) <= C, ]
+
+        posterior.samples = sapply(1:reps, function(i) f.hat + fluctuations[i])
+        posterior.samples.max = apply(posterior.samples,1,max)
+        posterior.samples.min = apply(posterior.samples,1,min)
+        cb.hat = cbind(posterior.samples.min,posterior.samples.max)    
+        R.hat = R.hat[1,]
+
         outcome<-
             list(
-                f.hat = sdy*f.hat,
-                R.hat = R.hat[1,],
-                lambda.hat = Lambda,
+                f.hat = f.hat,
+                R.hat = R.hat,
+                lambda.hat = lambda.hat,
                 etq.hat = etq.hat,
                 niter = count,
-                sigma2.hat = (sdy^2)*sigma2.hat
+                sigma2.hat = sigma2.hat,
+                cb.hat = cb.hat    
             )
     }
 
@@ -151,6 +194,7 @@ if(method=="P"){
     }
     R.hat      <- mm$R.hat
     sigma2.hat <- mm$sigma2.hat
+    sigma2.hat = (sdy^2) * sigma2.hat
 
     if (norm((R.hat-diag(neBsc)),"F")<2e-06){
         rho.fit = 1
@@ -163,7 +207,6 @@ if(method=="P"){
     Lambda = 10^log10lambda.hat
 
     rho = coefs ^ 2 * Lambda * eigens * rho.fit / (1 + Lambda * eigens * rho.fit)
-    #rho[rho>quantile(rho,0.995)] = quantile(rho, 0.995) 
     rho = rho / mean(rho)
       
     ##smoothed rhos
@@ -171,18 +214,37 @@ if(method=="P"){
     rho.fit = rho.fit1/mean(rho.fit1)  
     
     ##final estimates
-    f.hat   = Phi.mat %*% (coefs/(1+Lambda * eigens * rho.fit))
+    f.hat   = sdy * Phi.mat %*% (coefs/(1 + Lambda * eigens * rho.fit))
     etq.hat = Eq(log10lambda = log10(Lambda), coefs = coefs, eigens = eigens, rhos = rho.fit, neBsc = neBsc, q = q)
     R.hat   = sapply(1:neBsc, function(i) mean(cos(pi * x * (i-1)) * rho.fit))
-            
+    lambda.hat = Lambda   
+
+    # cbs
+    coefs = t(Phi.mat) %*% y 
+    PRP = t(Phi.mat) %*% R.hat %*% Phi.mat
+    SR.hat = Phi.mat %*% solve(PRP + lambda.hat * diag(eigens)) %*% t(Phi.mat)
+
+    reps = 5000
+    alpha = 0.05
+    temp = rmvt(round(reps/(1 - alpha)), sigma = sigma2.hat * SR.hat, df = neBsc + 1, type = "shifted")
+    C = sort(apply((temp)^2, 1, sum))[reps]
+    fluctuations = temp[(apply((temp)^2, 1, sum)) <= C, ]
+
+    posterior.samples = sapply(1:reps, function(i) f.hat + fluctuations[i])
+    posterior.samples.max = apply(posterior.samples,1,max)
+    posterior.samples.min = apply(posterior.samples,1,min)
+    cb.hat = cbind(posterior.samples.min,posterior.samples.max)
+    R.hat = R.hat[1,]
+    
     outcome <-
         list(
-            f.hat = sdy*f.hat,
-            R.hat = mm$R.hat[1,],
+            f.hat = f.hat,
+            R.hat = R.hat,
             lambda.hat = Lambda,
             etq.hat = etq.hat,
             niter = 1,
-            sigma2.hat = (sdy^2)*sigma2.hat
+            sigma2.hat = sigma2.hat,
+            cb.hat = cb.hat
         )    
 }
     

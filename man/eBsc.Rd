@@ -44,7 +44,8 @@ A list object of class \code{eBsc} containing the following information.
 \item{lambda.hat}{estimated lambda}
 \item{R.hat}{estimated correlation matrix}
 \item{f.hat}{estimated function}
-\item{f.hat}{estimated variance}
+\item{cb.hat}{estimated condidence bands at a 95\% confidence level}
+\item{sigma2.hat}{estimated variance}
 \item{etq.hat}{estimating equation for q}
 \item{data}{data used to fit the model}
 \item{call}{Call of eBsc}
@@ -75,8 +76,8 @@ noise <- rnorm(n)
 y <- mu + sigma * noise
 
 # correlation matrix assumed known and equal to the identity
-fit <- eBsc(y,  method = "D", R0 = diag(n))
-plot(fit, full=FALSE)
+fit <- eBsc(y, method = "N", q=3)
+plot(fit, full = FALSE)
 
 }
 \keyword{bayesian}

@@ -7,6 +7,7 @@ est$q.hat      <- est$q.hat
 est$lambda.hat <- est$lambda.hat
 est$R.hat      <- est$R.hat
 est$f.hat      <- est$f.hat
+est$cb.hat      <- est$cb.hat
 est$etq.hat    <- est$etq.hat
 est$iterations <- est$iterations
 est$sigma2.hat <- est$sigma2.hat

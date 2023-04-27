@@ -3,6 +3,7 @@ function(x,full = FALSE,...)
 {
     etq   = x$etq.hat
     f.hat = x$f.hat
+    cb.hat = x$cb.hat
     R.hat = x$R.hat
     q.hat = x$q.hat
     data  = x$data
@@ -16,6 +17,8 @@ function(x,full = FALSE,...)
             par(mfrow = c(2,2), mar = c(2,2,3,2))
             plot(data, type='l', col=8, main = "data (grey), estimation (red)", ylab = "y", xlab = "x");
             lines(f.hat, col = 2, lwd = 1);
+            lines(cb.hat[,1], col = 2, lwd = 1,lty=2);
+            lines(cb.hat[,2], col = 2, lwd = 1,lty=2);
             plot(1:6, etq, col = 8, xlab = "", ylab = "", type = 'b', pch = 1, main = "Tq");
             abline(h = 0, lwd = 2);
             abline(v = q.hat, lwd = 1, col = 2, lty = 2)

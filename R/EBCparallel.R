@@ -23,6 +23,7 @@ EBCparallel<-function(y, qq = NULL, method = "N", parallel = FALSE,  R0 = NULL, 
         ##computation
         O <- EBCq(y = y, q = qq, method = method, R0 = R0, zero_range = zero_range, ARpMAq = ARpMAq, tol.lambda = tol.lambda, tol.rho = tol.rho, max.iter = max.iter)
         f.Hat <- O$f.hat
+        cb.Hat <- O$cb.hat
         R.Hat <- O$R.hat
         lambda.Hat <- O$lambda.hat
         sigma2.Hat <- O$sigma2.hat        
@@ -71,9 +72,10 @@ EBCparallel<-function(y, qq = NULL, method = "N", parallel = FALSE,  R0 = NULL, 
 
         if(q.Hat!=0){
             f.Hat      <- O[[q.Hat]]$f.hat
+            cb.Hat     <- O[[q.Hat]]$cb.hat
             R.Hat      <- O[[q.Hat]]$R.hat
             lambda.Hat <- O[[q.Hat]]$lambda.hat
-            sigma2.Hat <- O[[q.Hat]]$sigma2.hat
+            sigma2.Hat <- O[[q.Hat]]$sigma2.hat            
             niter      <- O[[q.Hat]]$niter
         }else{
             message(" eBsc fail!: cannot select optimal q.","\n",
@@ -90,6 +92,7 @@ EBCparallel<-function(y, qq = NULL, method = "N", parallel = FALSE,  R0 = NULL, 
 
     return(list(
         f.hat = f.Hat,
+        cb.hat = cb.Hat,
         R.hat = R.Hat,    
         lambda.hat = lambda.Hat,
         sigma2.hat =sigma2.Hat,        
