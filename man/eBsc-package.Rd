@@ -10,7 +10,7 @@ Empirical Bayes smoothing splines with correlated errors. The method uses a recu
 \details{
 \tabular{ll}{
 Package: \tab eBsc\cr
-Version: \tab 4.16\cr
+Version: \tab 4.17\cr
 Date: \tab 2023-05-01\cr
 Depends: \tab Brobdingnag, parallel, nlme, Matrix, MASS, mvtnorm\cr
 }
@@ -43,7 +43,7 @@ mu <- (mu - min(mu))/(max(mu) - min(mu))
 noise <- rnorm(n)
 y <- mu + sigma * noise
 
-# correlation matrix assumed known and equal to the identity
+#q assumed known and equal to 3, and correlation unknown
 fit <- eBsc(y, method = "N", q=3)
 plot(fit, full = FALSE)
 }

@@ -45,7 +45,7 @@ mu <- (mu-min(mu))/(max(mu)-min(mu))
 noise <- rnorm(n)
 y <- mu + sigma * noise
 
-#correlation assumed known and equal to the identity
+#q assumed known and equal to 3, and correlation unknown
 fit <- eBsc(y, method = "N", q=3)
 
 #simple plot by  

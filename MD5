@@ -1,4 +1,4 @@
-da53cfbb61f6700b1dce325a0165bd97 *DESCRIPTION
+8b8a8e9a00b339ae109fcc594f3a0948 *DESCRIPTION
 b0cab8ae6c38c59d935954c50282ace1 *NAMESPACE
 85f08dded6ab82651d61e7bcd31e5ef7 *R/EBCparallel.R
 104f699e599a770f7805f6df3395b426 *R/EBCq.R
@@ -18,9 +18,9 @@ f7c7adb5f7fddd78654b1c551826292a *R/lmm.R
 6f7f2346bd373c0c698f58030c7878b7 *R/summary.eBsc.R
 1210e558b13da4d47ac3a9202f740701 *man/drbasis.Rd
 97a075258d6b9f72f10d76da116a3c24 *man/eBsc-internal.Rd
-db0cd56b2bd7a60135e0a66b0519af06 *man/eBsc-package.Rd
-3b327e520d18829c14ae046e7ab4a00e *man/eBsc.Rd
-d5674eab09be03df29e20ab53cf4b2ba *man/plot.eBsc.Rd
+4f618216803e348f53180a5d9f5c3b1d *man/eBsc-package.Rd
+98aaba16d01d2c0c016b9d707c5d6ddf *man/eBsc.Rd
+d7cb87d63c464c430923a460a8edda9b *man/plot.eBsc.Rd
 072214dfd360b239e67aa8a29c564ea1 *man/rcpparma_hello_world.Rd
 ad180783b8764f4ce41836bb48a8b938 *man/summary.eBsc.Rd
 9bee80363d628043a5d46114251699d9 *src/Makevars
